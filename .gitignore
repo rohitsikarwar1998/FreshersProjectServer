@@ -1,2 +1,3 @@
 venv
 Scraping/__pycache__/
+app/server/__pycache__
