@@ -1,4 +1,6 @@
 import scrap
+from datetime import datetime 
+from dbstore import insertDocuments
 
 
 PAGE_URL="https://investor.weyerhaeuser.com/events-and-presentations"
@@ -15,8 +17,8 @@ xpaths=[title_xpath,date_xpath,link_xpath]
 
 documents.extend(scrap.scrapping(PAGE_URL,xpaths));
 
+def strToDate(date:str)->datetime:
+    return datetime.strptime(date, '%A, %B %d, %Y')
+
 for i in range(len(documents)):
-    print(documents[i].title,end=' ')
-    print(documents[i].date,end=' ')
-    print(documents[i].link,end=' ')
-    print()
+    insertDocuments(documents[i].title,strToDate(documents[i].date),documents[i].link)
