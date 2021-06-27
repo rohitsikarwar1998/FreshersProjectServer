@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
 from ..database import (
-    retrieve_documents,
+    retrieveDocuments,
 )
 from ..models.document import (
     ErrorResponseModel,
@@ -12,8 +12,8 @@ from ..models.document import (
 router = APIRouter()
 
 @router.get("/",response_description="Documents retrieved")
-async def get_documents():
-    documents = await retrieve_documents()
+async def getDocuments():
+    documents = await retrieveDocuments()
     if documents:
         return ResponseModel(documents, "documents data retrieved successfully")
     return ResponseModel(documents, "Empty list returned")

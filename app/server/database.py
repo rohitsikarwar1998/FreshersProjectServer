@@ -5,11 +5,11 @@ MONGO_DETAILS="mongodb://localhost:27017"
 
 client=motor.motor_asyncio.AsyncIOMotorClient(MONGO_DETAILS)
 
-database=client.documents
+database=client.freshers_project
 
-document_collection=database.get_collection("documents_collection")
+documentCollection=database.get_collection("documents")
 
-def document_helper(document)->dict:
+def documentHelper(document)->dict:
     return {
         "id":str(document["_id"]),
         "title":document["title"],
@@ -17,8 +17,8 @@ def document_helper(document)->dict:
         "link":document["link"],
     }
 
-async def retrieve_documents():
+async def retrieveDocuments():
     documents=[]
-    async for document in document_collection.find():
-        documents.append(document_helper(document))
+    async for document in documentCollection.find():
+        documents.append(documentHelper(document))
     return documents

@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-app=FastAPI()
 from .routes import document
+app=FastAPI()
 
 
 app.include_router(document.router)
