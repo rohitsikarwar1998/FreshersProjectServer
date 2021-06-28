@@ -1,13 +1,13 @@
 venv
 <<<<<<< HEAD
 <<<<<<< HEAD
-Scraping/__pycache__/
+scrapping/__pycache__/
 =======
-Scraping/__pycache__
+scrapping/__pycache__
 app
 >>>>>>> add-scraping
 =======
-Scraping/__pycache__/
+scrapping/__pycache__/
 app/server/__pycache__
 app/server/models/__pycache__
 app/server/routes/__pycache__
