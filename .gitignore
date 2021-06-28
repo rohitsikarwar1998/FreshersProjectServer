@@ -1,2 +1,7 @@
 venv
+<<<<<<< HEAD
 Scraping/__pycache__/
+=======
+Scraping/__pycache__
+app
+>>>>>>> add-scraping
