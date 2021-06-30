@@ -21,6 +21,6 @@ def documentHelper(document)->dict:
 
 async def retrieveDocuments(startDate:datetime):
     documents=[]
-    async for document in documentCollection.find({"date":{"$lt":startDate}}).limit(15):
+    async for document in documentCollection.find({"date":{"$lt":startDate}}).limit(16):
         documents.append(documentHelper(document))
     return documents
