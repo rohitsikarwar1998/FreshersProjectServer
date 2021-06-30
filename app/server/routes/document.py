@@ -1,6 +1,5 @@
 from datetime import datetime
 from fastapi import APIRouter
-from dateutil import parser
 
 from ..database import (
     retrieveDocuments,

@@ -14,7 +14,9 @@ motor==2.4.0
 pydantic==1.8.2
 pylint==2.8.3
 pymongo==3.11.4
+python-dateutil==2.8.1
 requests==2.25.1
+six==1.16.0
 starlette==0.14.2
 toml==0.10.2
 typing-extensions==3.10.0.0
