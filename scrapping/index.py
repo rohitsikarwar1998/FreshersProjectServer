@@ -3,22 +3,22 @@ from datetime import datetime
 from dbstore import insertDocuments
 
 
-PAGE_URL="https://investor.weyerhaeuser.com/events-and-presentations"
-
-title_xpath="//div[@class='wd_title']/a/text()"
-date_xpath="//div[@class='item_date wd_event_sidebar_item wd_event_date']/text()"
-link_xpath="//div[@class='wd_title']/a/@href"
-
+PAGE_URL="https://informacioncorporativa.entel.cl/files.json?category=presentations&limit=40&tags=2021&callback=jQuery18308433009245375991_1625063460594"
 
 
 #list of all documents which is an instance of Document class
+ 
 documents=[];
-xpaths=[title_xpath,date_xpath,link_xpath]
-
-documents.extend(scrap.scrapping(PAGE_URL,xpaths));
+for year in range(13,22):
+    url=PAGE_URL[:90]+str(year)+PAGE_URL[92:]
+    documents.extend(scrap.scrapping(url));
 
 def strToDate(date:str)->datetime:
-    return datetime.strptime(date, '%A, %B %d, %Y')
+    ## yy-mm-dd time formate
+    # date_in_proper_format=date[0:10]
+    return datetime.strptime(date[0:10] ,'%Y-%m-%d')
+   
+ 
 
 for i in range(len(documents)):
     insertDocuments(documents[i].title,strToDate(documents[i].date),documents[i].link)

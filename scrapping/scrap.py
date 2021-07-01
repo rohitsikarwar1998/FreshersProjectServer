@@ -1,7 +1,8 @@
 from lxml import html
 import requests
+import json
 
-def scrapping(pageUrl:str,xpaths:list)->list:
+def scrapping(pageUrl:str)->list:
 
     class Document:
         def __init__(self,title,date,link) -> None:
@@ -13,17 +14,50 @@ def scrapping(pageUrl:str,xpaths:list)->list:
 
     #get row html document
     page=requests.get(pageUrl);
+   
 
     #parsing the dom tree 
-    tree=html.fromstring(page.content)
+    data=json.loads(page.content[41:-1])
+    
+  
 
-    titles=tree.xpath(xpaths[0])
-    dates=tree.xpath(xpaths[1])
-    links=tree.xpath(xpaths[2])
-
-    for i in range(len(titles)):
-        documents.append(Document(titles[i],dates[i],links[i]))
+    for item in range(data['meta']['total_entries']):
+        # date_obj=datetime.strptime(data['files'][item]['created_at'][0:10],"%Y-%m-%d")
+        # print(date_obj.year)
+        date_doc=data['files'][item]['created_at']
+        title_doc=data['files'][item]['title']
+        link_doc=data['files'][item]['file']
+       
+        documents.append(Document(title_doc,date_doc,link_doc))
 
     return documents;
 
+def scrapping_1(pageUrl:str)->list:
+    class Document:
+        def __init__(self,title,date,link) -> None:
+            self.title=title
+            self.date=date
+            self.link=link
+    documents=[];
 
+    #get row html document
+    page=requests.get(pageUrl);
+   
+
+    #parsing the dom tree 
+    data=json.loads(page.content)
+    
+  
+
+    for item in range(len(data['GetEventListResult'])):
+         path=data['GetEventListResult'][item]['DocumentPath']
+         if path is None :
+           pass
+         else:
+           date=data['GetEventListResult'][item]['StartDate']
+           title=data['GetEventListResult'][item]['Title']
+           link=data['GetEventListResult'][item]['DocumentPath']
+       
+           documents.append(Document(title,date,link))
+
+    return documents;
