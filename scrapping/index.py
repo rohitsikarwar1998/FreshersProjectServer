@@ -21,4 +21,4 @@ def strToDate(date:str)->datetime:
     return datetime.strptime(date, '%A, %B %d, %Y')
 
 for i in range(len(documents)):
-    insertDocuments(documents[i].title,strToDate(documents[i].date),documents[i].link)
+    insertDocuments(documents[i].title,strToDate(documents[i].date),documents[i].link,documents[i].num)

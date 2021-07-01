@@ -13,9 +13,9 @@ from ..models.document import (
 router = APIRouter()
 
 @router.get("/documents/",response_description="Documents retrieved")
-async def getDocuments(startDate:str=datetime.today().isoformat()[0:19]):
+async def getDocuments(num:int=0,startDate:str=datetime.today().isoformat()[0:19]):
     date=datetime.strptime(startDate, "%Y-%m-%dT%H:%M:%S")
-    documents = await retrieveDocuments(date)
+    documents = await retrieveDocuments(num,date)
     if documents:
         return ResponseModel(documents, "documents data retrieved successfully")
     return ResponseModel(documents, "Empty list returned")

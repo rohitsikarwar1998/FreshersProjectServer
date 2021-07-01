@@ -4,10 +4,11 @@ import requests
 def scrapping(pageUrl:str,xpaths:list)->list:
 
     class Document:
-        def __init__(self,title,date,link) -> None:
+        def __init__(self,title,date,link,num) -> None:
             self.title=title
             self.date=date
             self.link=link
+            self.num=num
 
     documents=[];
 
@@ -22,7 +23,7 @@ def scrapping(pageUrl:str,xpaths:list)->list:
     links=tree.xpath(xpaths[2])
 
     for i in range(len(titles)):
-        documents.append(Document(titles[i],dates[i],links[i]))
+        documents.append(Document(titles[i],dates[i],links[i],2))
 
     return documents;
 

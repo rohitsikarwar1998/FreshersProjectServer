@@ -19,8 +19,24 @@ def documentHelper(document)->dict:
         "link":document["link"],
     }
 
-async def retrieveDocuments(startDate:datetime):
+def filter(documents:list,date:str):
+    newDocuments=[]
+    for document in documents:
+        if document["date"]!=date:
+            newDocuments.append(document)
+    return newDocuments
+
+async def retrieveDocuments(num:int,startDate:datetime):
     documents=[]
-    async for document in documentCollection.find({"date":{"$lt":startDate}}).limit(16):
-        documents.append(documentHelper(document))
+    if num==0:
+        async for document in documentCollection.find({"date":{"$lt":startDate}}).limit(20):
+            documents.append(documentHelper(document))
+    else:
+        async for document in documentCollection.find({"$and":[{"date":{"$lt":startDate}},{"num":{"$eq":num}}]}).limit(20):
+            documents.append(documentHelper(document))
+        
+    if len(documents)!=0:
+        date=documents[len(documents)-1]["date"];
+        # print(date)
+        documents=filter(documents,date);
     return documents

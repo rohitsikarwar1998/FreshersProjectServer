@@ -5,6 +5,7 @@ class DocumentSchema(BaseModel):
     title:str=Field(...)
     date:datetime=Field(...)
     link:str=Field(...)
+    num:int=Field(...)
 
 
 def ResponseModel(data,message):
