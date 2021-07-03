@@ -1,14 +1,54 @@
+
+from datetime import datetime
 from lxml import html
 import requests
 import json
-
 class Document:
-    def __init__(self,title,date,link) -> None:
-        self.title=title
-        self.date=date
-        self.link=link
+        def __init__(self,title,date,link) -> None:
+            self.title=title
+            self.date=date
+            self.link=link
+
+
+def scrapping_1(pageUrl:str,xpaths:list)->list:
+    
+    documents=[];
+
+    #get row html document
+   
+    page=requests.get(pageUrl);
+
+    #parsing the dom tree 
+    tree=html.fromstring(page.content)
+
+    titles=tree.xpath(xpaths[0])
+    dates=tree.xpath(xpaths[1])
+    links=tree.xpath(xpaths[2])
+    
+   
+    
+     
+    h="https://investor.weyerhaeuser.com"
+     
+   
+    if(len(links)>0):
+      s=links[0]
+      actual_link=h+s
+    
+    
+      documents.append(Document(titles[0],dates[0],h+links[0]))
+  
+   
+    return documents;  
+
+
+
+
+
 
 def scrapping_3(pageUrl:str)->list:
+
+   
 
     documents=[];
 
@@ -22,8 +62,7 @@ def scrapping_3(pageUrl:str)->list:
   
 
     for item in range(data['meta']['total_entries']):
-        # date_obj=datetime.strptime(data['files'][item]['created_at'][0:10],"%Y-%m-%d")
-        # print(date_obj.year)
+       
         date_doc=data['files'][item]['created_at']
         title_doc=data['files'][item]['title']
         link_doc=data['files'][item]['file']
@@ -32,10 +71,8 @@ def scrapping_3(pageUrl:str)->list:
 
     return documents;
 
-
-
 def scrapping_2(pageUrl:str)->list:
-    
+  
     documents=[];
 
     #get row html document
@@ -58,4 +95,32 @@ def scrapping_2(pageUrl:str)->list:
        
            documents.append(Document(title,date,link))
 
+    return documents;
+
+
+def scrapping_4(pageUrl:str,xpaths:list,Hd:dict)->list:
+
+   
+
+    documents=[];
+
+    #get row html document
+    
+    page=requests.get(pageUrl,headers=Hd);
+
+    #parsing the dom tree 
+    tree=html.fromstring(page.content)
+
+    titles=tree.xpath(xpaths[0])
+    dates=tree.xpath(xpaths[1])
+    links=tree.xpath(xpaths[2])
+    
+  
+
+    h="https://ir.homedepot.com"
+    for i in range(len(titles)):
+        if links[i].startswith("/"):
+          documents.append(Document(titles[i][21:],dates[i][21:],h+links[i]))
+        
+        
     return documents;
