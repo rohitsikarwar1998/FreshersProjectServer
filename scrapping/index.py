@@ -7,8 +7,8 @@ from datetime import datetime
 
 
 ##########################################################################  website-1 #########################################################################
-print(datetime.now())
-print("START")
+# print(datetime.now())
+# print("START")
 documents=[];
 i=51
 while i<=123:
@@ -89,7 +89,7 @@ for i in range(len(documents)):
     insertDocuments(documents[i].title,strToDate(documents[i].date),documents[i].link,3)
 
 
-print(datetime.now())
+# print(datetime.now())
 
 ###########################################################################      website 4    ###################################################################################
 
@@ -121,4 +121,4 @@ for page_no in range(7):
 
 for i in range(len(documents)):
     insertDocuments(documents[i].title,strToDate(documents[i].date[0:12]),documents[i].link,4)
-print(datetime.now())
+# print(datetime.now())
